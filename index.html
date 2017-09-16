@@ -1,113 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Running Back</title>
-	<script type="text/javascript" src="phaser.js"></script>
-
+    <meta charset="UTF-8">
+    <title>Running Back</title>
+    <script type="text/javascript" src="phaser.js"></script>
 </head>
+
 <body>
-	<script>
-		var game = new Phaser.Game(2000, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
+    <style>
+    body {
+        background-color: black;
+        margin-top: 3em;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+    </style>
+    <script>
+    var game = new Phaser.Game(2000, 800, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
 
-var background;
-var player;
-var field;
-function preload() {
+    var background;
+    var player;
+    var field;
 
-game.load.image('background','assets/Field.png');
-// game.load.image('cog', 'assets/BigCogTexture2.png');
-// game.load.image('hill2', 'assets/secondHills.png');
-// game.load.image('hill', 'assets/Hill-test.png');
-game.load.spritesheet('RB', 'assets/football360.png', 288, 288, 40);
+    function preload() {
 
-
-}
-
-function create() {
-field = game.add.tileSprite(0,0,2000,600, 'background');
-this.player = game.add.sprite(500, 300, 'RB');
-
-this.player.animations.add('downIdle', [0], 9, true);
-this.player.animations.add('down', [1,2,3,4], 9, true);
+        game.load.image('background', 'assets/Field.png');
+        game.load.spritesheet('RB', 'assets/football360.png', 288, 288, 40);
 
 
+    }
+
+    function create() {
+        field = game.add.tileSprite(0, 0, 2000, 800, 'background');
+        this.player = game.add.sprite(600, 300, 'RB');
+
+        this.player.animations.add('downIdle', [0], 9, true);
+        this.player.animations.add('down', [1, 2, 3, 4], 9, true);
 
 
-this.player.animations.add('upIdle', [35], 9, true);
-this.player.animations.add('up', [36,37,38,39], 9, true);
-
-this.player.animations.add('leftIdle', [20], 9, true);
-this.player.animations.add('left', [21,22,23,24], 9, true);
-
-this.player.animations.add('rightIdle', [15], 9, true);
-this.player.animations.add('right', [16,17,18,19], 9, true);
-
-
+        this.player.animations.add('SE', [6, 7, 8, 9], 9, true);
+        this.player.animations.add('SW', [11, 12, 13, 14], 9, true);
+        this.player.animations.add('NW', [26, 27, 28, 29], 9, true);
+        this.player.animations.add('NE', [31, 32, 33, 34], 9, true);
 
 
 
-// this.player.animations.add('upIdle', [0], 9, true);
-// this.player.animations.add('leftIdle', [8], 9, true);
-// this.player.animations.add('rightIdle', [4], 9, true);
+        this.player.animations.add('upIdle', [35], 9, true);
+        this.player.animations.add('up', [36, 37, 38, 39], 9, true);
+
+        this.player.animations.add('leftIdle', [20], 9, true);
+        this.player.animations.add('left', [21, 22, 23, 24], 9, true);
+
+        this.player.animations.add('rightIdle', [15], 9, true);
+        this.player.animations.add('right', [16, 17, 18, 19], 9, true);
 
 
 
+        downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+        downKey.isDown === true;
+        upKey.isDown === true;
+        leftKey.isDown === true;
+        rightKey.isDown === true;
+
+        downKey.isUp === false;
+        upKey.isUp === false;
+        leftKey.isUp === false;
+        rightKey.isUp === false;
+
+    }
 
 
-downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-}
+    function update() {
 
 
-function update() {
 
-if (leftKey.isDown)
-{
+        if (leftKey.isDown && upKey.isDown === false && downKey.isDown === false) {
 
-this.player.play('left');
-field.tilePosition.x += 3;
+            this.player.play('left');
+            field.tilePosition.x += 3;
 
-}
- if (rightKey.isDown){
-	this.player.play('right');
-	field.tilePosition.x -= 3;
+        }
 
-}
- if (downKey.isDown){
-	this.player.play('down');
-	field.tilePosition.y -= 3;
 
-}
+        if (rightKey.isDown && downKey.isDown === false && upKey.isDown === false) {
+            this.player.play('right');
+            field.tilePosition.x -= 3;
 
- if (upKey.isDown){
-	this.player.play('up');
-	field.tilePosition.y += 3;
+        }
 
-}
 
-// else{
-// 	this.player.play('downIdle');
-// }
-// if (leftKey.isUp){
-// 	this.player.play('leftIdle');
-// }
-// if (rightKey.isUp){
-// 	this.player.play('rightIdle');
-// }
-// if (upKey.isUp){
-// 	this.player.play('upIdle');
-// }
-// if (downKey.isUp){
-// 	this.player.play('downIdle');
-// }
+        if (downKey.isDown && leftKey.isDown === false && rightKey.isDown === false) {
+            this.player.play('down');
+            field.tilePosition.y -= 3;
 
-}
 
-</script>
-	</script>
+        }
+
+        //Player idle logic
+        //Still working on
+        // 	if (downKey.isUp === true){
+        // 	this.player.play('downIdle');
+        // }
+
+
+        if (upKey.isDown && leftKey.isDown === false && rightKey.isDown === false) {
+            this.player.play('up');
+            field.tilePosition.y += 3;
+
+        }
+
+
+        if (downKey.isDown &&leftKey.isDown) {
+            this.player.play('SW');
+            field.tilePosition.y -= 1.5;
+            field.tilePosition.x += 1.5;
+        }
+
+
+        if (downKey.isDown && rightKey.isDown) {
+            this.player.play('SE');
+            field.tilePosition.y -= 1.5;
+            field.tilePosition.x -= 1.5;
+        }
+
+        if (upKey.isDown && leftKey.isDown) {
+            this.player.play('NW');
+            field.tilePosition.y += 1.5;
+            field.tilePosition.x += 1.5;
+        }
+
+        if (upKey.isDown && rightKey.isDown) {
+            this.player.play('NE');
+            field.tilePosition.y += 1.5;
+            field.tilePosition.x -= 1.5;
+        }
+
+    }
+    </script>
+    </script>
 </body>
+
 </html>
