@@ -70,6 +70,9 @@
         rightKey.isUp === false;
     }
     function update() {
+
+      if (leftKey.isDown || rightKey.isDown || upKey.isDown || downKey.isDown){
+
         if (leftKey.isDown && upKey.isDown === false && downKey.isDown === false) {
 
             this.player.play('left');
@@ -81,39 +84,18 @@
             this.player.play('right');
             field.tilePosition.x -= 3;
         }
-       else if (downKey.isDown) {
+      else if (downKey.isDown && leftKey.isDown === false && rightKey.isDown === false && upKey.isDown === false) {
             this.player.play('down');
             field.tilePosition.y -= 3;
         }
      
-        else if (upKey.isDown && leftKey.isDown === false && rightKey.isDown === false) {
-            this.player.play('up');
-            field.tilePosition.y += 3;
-        }
+    if (upKey.isDown && leftKey.isDown === false && rightKey.isDown === false) {
         
-      // else if (downKey.isDown &&leftKey.isDown) {
-      //       this.player.play('SW');
-      //       field.tilePosition.y -= 1.5;
-      //       field.tilePosition.x += 1.5;
-      //   }
-      //   else if (downKey.isDown && rightKey.isDown) {
-      //       this.player.play('SE');
-      //       field.tilePosition.y -= 1.5;
-      //       field.tilePosition.x -= 1.5;
-      //   }
-      //   else if (upKey.isDown && leftKey.isDown) {
-      //       this.player.play('NW');
-      //       field.tilePosition.y += 1.5;
-      //       field.tilePosition.x += 1.5;
-      //   }
-      //  else if (upKey.isDown && rightKey.isDown) {
-      //       this.player.play('NE');
-      //       field.tilePosition.y += 1.5;
-      //       field.tilePosition.x -= 1.5;
-      //   }
-      //   else {
-      //       this.player.play('downIdle');
-      //   }
+            this.player.play('up');
+              field.tilePosition.y += 3;
+          }
+     
+    }
      else{ this.player.play('downIdle');}
     }
     </script>
