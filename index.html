@@ -17,19 +17,19 @@
     }
     </style>
     <script>
-    var game = new Phaser.Game(2000, 800, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
+    var game = new Phaser.Game(4000, 3840, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
     var background;
     var player;
     var field;
     function preload() {
-        game.load.image('background', 'assets/Field.png');
+        game.load.image('background', 'assets/fieldcrowd.png');
       //  game.load.spritesheet('RB', 'assets/football360.png', 288, 288, 40);
       game.load.spritesheet('RB', 'assets/Football_RB.png', 384, 384, 21);
     }
     function create() {
-        field = game.add.tileSprite(0, 0, 2000, 800, 'background');
+        field = game.add.tileSprite(-1700, -1400, 4000, 3840, 'background');
        // this.player = game.add.sprite(600, 300, 'RB');
- this.player = game.add.sprite(600, 300, 'RB');
+ this.player = game.add.sprite(700, 300, 'RB');
 
 
         // this.player.animations.add('downIdle', [0], 9, true);
@@ -76,8 +76,8 @@
         if (leftKey.isDown && upKey.isDown === false && downKey.isDown === false) {
 
             this.player.play('left');
-            field.tilePosition.x += 3;
-           
+            field.tilePosition.x += 30;
+
 
         }
         else if (rightKey.isDown && downKey.isDown === false && upKey.isDown === false) {
@@ -97,7 +97,13 @@
      
     }
      else{ this.player.play('downIdle');}
+if (field.tilePosition.x > 1000){
+//	alert('hey');
+}
     }
+
+
+
     </script>
     </script>
 </body>
