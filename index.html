@@ -76,30 +76,40 @@
         if (leftKey.isDown && upKey.isDown === false && downKey.isDown === false) {
 
             this.player.play('left');
-            field.tilePosition.x += 30;
+            field.tilePosition.x += 5;
 
 
         }
         else if (rightKey.isDown && downKey.isDown === false && upKey.isDown === false) {
             this.player.play('right');
-            field.tilePosition.x -= 3;
+            field.tilePosition.x -= 5;
         }
       else if (downKey.isDown && leftKey.isDown === false && rightKey.isDown === false && upKey.isDown === false) {
             this.player.play('down');
-            field.tilePosition.y -= 3;
+            field.tilePosition.y -= 5;
         }
      
     if (upKey.isDown && leftKey.isDown === false && rightKey.isDown === false) {
         
             this.player.play('up');
-              field.tilePosition.y += 3;
+              field.tilePosition.y += 5;
           }
      
     }
      else{ this.player.play('downIdle');}
-if (field.tilePosition.x > 1000){
-//	alert('hey');
+if (field.tilePosition.x === 1700){
+	field.tilePosition.x -=5;
 }
+if (field.tilePosition.x === -700){
+	field.tilePosition.x +=5;
+}
+if (field.tilePosition.y === -380){
+	field.tilePosition.y +=5;
+}
+if (field.tilePosition.y === 560){
+	field.tilePosition.y -=5;
+}
+
     }
 
 
