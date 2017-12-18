@@ -27,7 +27,7 @@
       game.load.spritesheet('RB', 'assets/Football_RB.png', 384, 384, 21);
 
       game.load.audio('whistle', 'assets/whistleSFX.mp3');
-      game.load.audio('oj', 'assets/The_Story_of_O_J_.mp3');
+      game.load.audio('stadium', 'assets/stadium.mp3');
     }
     function create() {
         field = game.add.tileSprite(-1700, -1400, 4000, 3840, 'background');
@@ -35,12 +35,12 @@
  this.player = game.add.sprite(700, 300, 'RB');
 
     var whistle;
-    var oj;
+    var stadium;
 
-	whistle = game.add.audio('whistle', 0.2, true);
-	oj = game.add.audio('oj');
+	whistle = game.add.audio('whistle', 5.0, true);
+	stadium = game.add.audio('stadium');
+	stadium.loopFull(0.8);
 
-	oj.play();
 //	whistle.play();
   //  game.sound.setDecodedCallback([whistle], start, this);
 
@@ -111,23 +111,33 @@
     }
      else{ this.player.play('downIdle');}
 if (field.tilePosition.x === 1900){
-	field.tilePosition.x -=5;
-	game.whistle.play();
+//	field.tilePosition.x -=5;
+	//game.whistle.play();
+
+	field.tilePosition.x = -400;
+	field.tilePosition.y = 100;
+
 	
 }
 if (field.tilePosition.x === -700){
-	field.tilePosition.x +=5;
-	game.whistle.play();
+	//field.tilePosition.x +=5;
+	//game.whistle.play();
+	field.tilePosition.x = -400;
+	field.tilePosition.y = 100;
 	
 }
 if (field.tilePosition.y === -380){
-	field.tilePosition.y +=5;
-	game.whistle.play();
+	//field.tilePosition.y +=5;
+	//game.whistle.play();
+	field.tilePosition.x = -400;
+	field.tilePosition.y = 100;
 	
 }
 if (field.tilePosition.y === 560){
-	field.tilePosition.y -=5;
-	game.whistle.play();
+	//field.tilePosition.y -=5;
+	//game.whistle.play();
+	field.tilePosition.x = -400;
+	field.tilePosition.y = 100;
  }
 
     }
