@@ -1,0 +1,22 @@
+{
+  "name": "runningback",
+  "version": "1.0.0",
+  "description": "Game I made using Phaser js and homemade sprite animation sheet",
+  "main": "phaser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandersuglio/RunningBack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandersuglio/RunningBack/issues"
+  },
+  "homepage": "https://github.com/alexandersuglio/RunningBack#readme",
+  "dependencies": {
+    "http-server": "^0.10.0"
+  }
+}
