@@ -21,29 +21,30 @@
     var background;
     var player;
     var field;
-    function preload() {
-        game.load.image('background', 'assets/fieldcopy1.png');
-      //  game.load.spritesheet('RB', 'assets/football360.png', 288, 288, 40);
-      game.load.spritesheet('RB', 'assets/Football_RB.png', 384, 384, 21);
+    var bench;
 
-      game.load.audio('whistle', 'assets/whistleSFX.mp3');
-      game.load.audio('stadium', 'assets/stadium.mp3');
+    function preload() {
+        var whistle;
+        game.load.image('background', 'assets/fieldcopy1.png');
+        game.load.spritesheet('RB', 'assets/Football_RB.png', 384, 384, 21);
+        //  game.load.image('bench', 'assets/Team_mateclone.gif', 384, 384, 4);
+        game.load.audio('whistle', 'assets/whistleSFX.mp3');
+        game.load.audio('stadium', 'assets/stadium.mp3');
     }
+
     function create() {
         field = game.add.tileSprite(-1700, -1400, 4000, 3840, 'background');
-       // this.player = game.add.sprite(600, 300, 'RB');
- this.player = game.add.sprite(700, 300, 'RB');
 
-    var whistle;
-    var stadium;
+        this.player = game.add.sprite(700, 300, 'RB');
 
-	whistle = game.add.audio('whistle', 5.0, true);
-	stadium = game.add.audio('stadium');
-	stadium.loopFull(0.8);
+        //  bench = game.add.image(700, 500, 'bench');
 
-//	whistle.play();
-  //  game.sound.setDecodedCallback([whistle], start, this);
+        var stadium;
 
+        stadium = game.add.audio('stadium');
+        stadium.loopFull(0.8);
+
+      
         // this.player.animations.add('downIdle', [0], 9, true);
         // this.player.animations.add('down', [1, 2, 3, 4], 9, true);
         // this.player.animations.add('SE', [6, 7, 8, 9], 9, true);
@@ -58,13 +59,13 @@
         // this.player.animations.add('right', [16, 17, 18, 19], 9, true);
 
 
-        this.player.animations.add('downIdle', [0, 1, 2, 3],9, true);
+        this.player.animations.add('downIdle', [0, 1, 2, 3], 9, true);
         this.player.animations.add('down', [4, 5, 6, 7], 9, true);
 
         this.player.animations.add('up', [17, 18, 19, 20], 9, true);
 
         this.player.animations.add('left', [12, 13, 14, 15], 9, true);
-        
+
         this.player.animations.add('right', [8, 9, 10, 11], 9, true);
 
 
@@ -72,78 +73,115 @@
         upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
         leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+       
         downKey.isDown === true;
         upKey.isDown === true;
         leftKey.isDown === true;
         rightKey.isDown === true;
+        
         downKey.isUp === false;
         upKey.isUp === false;
         leftKey.isUp === false;
         rightKey.isUp === false;
     }
+
     function update() {
-//whistle.onStop.add(soundStopped, this);
 
-      if (leftKey.isDown || rightKey.isDown || upKey.isDown || downKey.isDown){
-
-        if (leftKey.isDown && upKey.isDown === false && downKey.isDown === false) {
-
-            this.player.play('left');
-            field.tilePosition.x += 5;
+        var snd = game.add.audio('whistle');
 
 
-        }
-        else if (rightKey.isDown && downKey.isDown === false && upKey.isDown === false) {
-            this.player.play('right');
-            field.tilePosition.x -= 5;
-        }
-      else if (downKey.isDown && leftKey.isDown === false && rightKey.isDown === false && upKey.isDown === false) {
-            this.player.play('down');
-            field.tilePosition.y -= 5;
-        }
-     
-    if (upKey.isDown && leftKey.isDown === false && rightKey.isDown === false) {
+        if (leftKey.isDown || rightKey.isDown || upKey.isDown || downKey.isDown) {
+
+            if (leftKey.isDown && upKey.isDown === false && downKey.isDown === false) {
+                this.player.play('left');
+                field.tilePosition.x += 5;
+
+            } else if (rightKey.isDown && downKey.isDown === false && upKey.isDown === false) {
+                this.player.play('right');
+                field.tilePosition.x -= 5;
+            } else if (downKey.isDown && leftKey.isDown === false && rightKey.isDown === false && upKey.isDown === false) {
+                this.player.play('down');
+                field.tilePosition.y -= 5;
+            }
+
+            else if (upKey.isDown && leftKey.isDown === false && rightKey.isDown === false) {
+                this.player.play('up');
+                field.tilePosition.y += 5;
+            }
+
+            else if (upKey.isDown && rightKey.isDown && leftKey.isDown === false){
+            	this.player.play('right');
+            	field.tilePosition.x -= 5;
+            	field.tilePosition.y += 5;
+            }
+               else if (downKey.isDown && rightKey.isDown && leftKey.isDown === false){
+            	this.player.play('right');
+            	field.tilePosition.x -= 5;
+            	field.tilePosition.y -= 5;
+            }
+
+            else if (upKey.isDown && leftKey.isDown && rightKey.isDown === false){
+            	this.player.play('left');
+            	field.tilePosition.x += 5;
+            	field.tilePosition.y += 5;
+            }
+
+            else if (downKey.isDown && leftKey.isDown && rightKey.isDown === false){
+            	this.player.play('left');
+            	field.tilePosition.x += 5;
+            	field.tilePosition.y -= 5;
+
+            	            }
+
+        } else { this.player.play('downIdle'); }
         
-            this.player.play('up');
-              field.tilePosition.y += 5;
-          }
-     
+
+
+
+        if (field.tilePosition.x === 1900) {
+
+            snd.play();
+            alert("TOUCHDOWN!");
+
+            field.tilePosition.x = -400;
+            field.tilePosition.y = 100;
+
+
+        }
+        if (field.tilePosition.x === -700) {
+
+
+            snd.play();
+            alert("TOUCHBACK!");
+
+
+            field.tilePosition.x = -400;
+            field.tilePosition.y = 100;
+
+
+        }
+        if (field.tilePosition.y === -380) {
+
+
+            snd.play();
+            alert("OUT OF BOUNDS!");
+
+            field.tilePosition.x = -400;
+            field.tilePosition.y = 100;
+
+
+        }
+        if (field.tilePosition.y === 560) {
+
+
+            snd.play();
+            alert("OUT OF BOUNDS!");
+            field.tilePosition.x = -400;
+            field.tilePosition.y = 100;
+
+        }
+
     }
-     else{ this.player.play('downIdle');}
-if (field.tilePosition.x === 1900){
-//	field.tilePosition.x -=5;
-	//game.whistle.play();
-
-	field.tilePosition.x = -400;
-	field.tilePosition.y = 100;
-
-	
-}
-if (field.tilePosition.x === -700){
-	//field.tilePosition.x +=5;
-	//game.whistle.play();
-	field.tilePosition.x = -400;
-	field.tilePosition.y = 100;
-	
-}
-if (field.tilePosition.y === -380){
-	//field.tilePosition.y +=5;
-	//game.whistle.play();
-	field.tilePosition.x = -400;
-	field.tilePosition.y = 100;
-	
-}
-if (field.tilePosition.y === 560){
-	//field.tilePosition.y -=5;
-	//game.whistle.play();
-	field.tilePosition.x = -400;
-	field.tilePosition.y = 100;
- }
-
-    }
-
-
-
     </script>
     </script>
 </body>
